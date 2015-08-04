@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="generator">
+    <output-path>$PROJECT_DIR$/out/artifacts/generator</output-path>
+    <root id="archive" name="generator.jar">
+      <element id="module-output" name="DB_script_generator_v1" />
+      <element id="file-copy" path="$PROJECT_DIR$/cc_grant_obj_privileges.sql" />
+      <element id="file-copy" path="$PROJECT_DIR$/validate_invalid_objects.sql" />
+    </root>
+  </artifact>
+</component>
