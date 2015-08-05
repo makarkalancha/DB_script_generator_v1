@@ -4,9 +4,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import constants.GlobalConstants;
 import constants.ScriptConstants;
 import utils.FileUtils;
+import validation.Rule;
+import validation.ValidationRules;
+import validation.errors.ErrorCode;
+import validation.errors.ErrorConverter;
 
 /**
  * Created by mcalancea on 2015-08-03.
@@ -56,6 +62,7 @@ public class BuildDBScripts {
 
     public void exec() {
         readOrderFiles();
+        validate();
         try {
             writeDbScript();
             writeRollbackDbScript();
@@ -69,8 +76,13 @@ public class BuildDBScripts {
         FileUtils.readOrderFile(fileWithRollbackScriptOrder, rollbackScriptOrder);
     }
 
-    private void prefixScriptNames(List<String> scriptList, StringBuilder scriptsWithPrefix, StringBuilder scriptsWithDoublePrefix) {
+    private void prefixScriptNames(List<String> scriptList, StringBuilder scriptsWithPrefix, StringBuilder scriptsWithDoublePrefix){
         for (String scriptName : scriptList) {
+            Multimap<ErrorCode, Object> errorCodes = validateScriptNames(scriptName);
+            if(!errorCodes.isEmpty()) {
+                throw new IllegalArgumentException(ErrorConverter.convertErrorCodeToString(errorCodes));
+            }
+
             scriptsWithPrefix.append(PREFIX);
             scriptsWithPrefix.append(scriptName);
             scriptsWithPrefix.append("\n");
@@ -80,6 +92,29 @@ public class BuildDBScripts {
             scriptsWithDoublePrefix.append(scriptName);
             scriptsWithDoublePrefix.append("\n");
         }
+    }
+
+    private void validate(){
+        Multimap<ErrorCode, Object> errorCodes = ArrayListMultimap.create();
+        for (String scriptName : scriptOrder) {
+            errorCodes.putAll(validateScriptNames(scriptName));
+        }
+        for (String scriptName : rollbackScriptOrder) {
+            errorCodes.putAll(validateScriptNames(scriptName));
+        }
+        if(!errorCodes.isEmpty()) {
+            throw new IllegalArgumentException(ErrorConverter.convertErrorCodeToString(errorCodes));
+        }
+    }
+
+    private Multimap<ErrorCode, Object> validateScriptNames(String scriptName) {
+        Multimap<ErrorCode, Object> errorCodes = ArrayListMultimap.create();
+        for (ValidationRules validationRules : ValidationRules.values()) {
+            Rule rule = validationRules.getRule();
+            rule.setObjectToValidate(scriptName);
+            errorCodes.putAll(rule.validate());
+        }
+        return errorCodes;
     }
 
     private void wrapDbScript(String path, List<String> scriptList){

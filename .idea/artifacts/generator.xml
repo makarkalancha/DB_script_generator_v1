@@ -5,6 +5,7 @@
       <element id="module-output" name="DB_script_generator_v1" />
       <element id="file-copy" path="$PROJECT_DIR$/cc_grant_obj_privileges.sql" />
       <element id="file-copy" path="$PROJECT_DIR$/validate_invalid_objects.sql" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/guava-18.0.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
