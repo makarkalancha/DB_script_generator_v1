@@ -87,10 +87,13 @@ public class BuildDBScripts {
             scriptsWithPrefix.append(scriptName);
             scriptsWithPrefix.append("\n");
 
-            scriptsWithDoublePrefix.append(PREFIX);
-            scriptsWithDoublePrefix.append(PREFIX);
-            scriptsWithDoublePrefix.append(scriptName);
-            scriptsWithDoublePrefix.append("\n");
+            // Pas de synonyme dans les schemas de developpeurs.
+            if(!scriptName.toLowerCase().contains("synonym")) {
+                scriptsWithDoublePrefix.append(PREFIX);
+                scriptsWithDoublePrefix.append(PREFIX);
+                scriptsWithDoublePrefix.append(scriptName);
+                scriptsWithDoublePrefix.append("\n");
+            }
         }
     }
 
