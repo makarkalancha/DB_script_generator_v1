@@ -1,0 +1,24 @@
+==================Requirements:================
+2 files a necessary: one containing the order of scripts to run and second the order of scripts to run for rollback.
+
+To wrap the script app needs the name of the script, the destination folder and path to order file and rollback order file.
+
+By default app offers all 4 options:
+1-name of the script is current date + "_db_script"
+2-destination folder is current folder from where the app was executed
+3-order file and rollback order file are in the current folder (previous point) and the name is "order_file.txt" and "rollback_order_file.txt"
+
+Format of order files is (no header/footer):
+
+01_insert _duplicates.sql
+02_create_TMP_YJADGTARGCH_YJADGBIDM.sql
+03_ create_TMP_YJADGROUPBIDMULTIPLIER.sql
+
+
+
+==================Validation:==================
+--ScriptNameSpaceRule
+checks if there's a space in a scrip name; otherwise script will fail
+
+--SqlExtentionRule
+checks if script name ends with ".sql"
