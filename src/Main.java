@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,12 +29,21 @@ public class Main {
 
             System.out.print("Destination folder [" + GlobalConstants.DEFAULT_SCRIPT_DESTINATION_FOLDER + "]: ");
             String desctinationFolder = CmdUtil.getValue(bufferedReader.readLine(), GlobalConstants.DEFAULT_SCRIPT_DESTINATION_FOLDER);
+            if(!Files.exists(Paths.get(desctinationFolder))) {
+                throw new FileNotFoundException("Could not find this directory: " + desctinationFolder);
+            }
 
             System.out.print("Path to script order file [" + GlobalConstants.DEFAULT_SCRIPT_ORDER_FILE + "]: ");
             String scriptOrderPath = CmdUtil.getValue(bufferedReader.readLine(), GlobalConstants.DEFAULT_SCRIPT_ORDER_FILE);
+            if(!Files.exists(Paths.get(scriptOrderPath))) {
+                throw new FileNotFoundException("Could not find this file: " + scriptOrderPath);
+            }
 
             System.out.print("Path to script rollback order file [" + GlobalConstants.DEFAULT_SCRIPT_ROLLBACK_ORDER_FILE + "]: ");
             String scriptRollbackOrderPath = CmdUtil.getValue(bufferedReader.readLine(), GlobalConstants.DEFAULT_SCRIPT_ROLLBACK_ORDER_FILE);
+            if(!Files.exists(Paths.get(scriptRollbackOrderPath))) {
+                throw new FileNotFoundException("Could not find this file: " + scriptRollbackOrderPath);
+            }
 
             BuildDBScripts buildDBScripts = new BuildDBScripts(
                     scriptName,
