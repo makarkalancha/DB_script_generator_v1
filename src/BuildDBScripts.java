@@ -136,11 +136,16 @@ public class BuildDBScripts {
             FileUtils.writeToFile(path + File.separator + nonStatFileName, nonStatScript);
         }
 
-
+        //prod
         FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("cc_grant_obj_privileges.sql"),
                 path + "\\cc_grant_obj_privileges.sql");
-        FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("cc_grant_obj_privileges.sql"),
+        FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("validate_invalid_objects.sql"),
                 path + "\\validate_invalid_objects.sql");
+//        //test
+//        FileUtils.copyFileFromJar("cc_grant_obj_privileges.sql",
+//                path + "\\cc_grant_obj_privileges.sql");
+//        FileUtils.copyFileFromJar("validate_invalid_objects.sql",
+//                path + "\\validate_invalid_objects.sql");
     }
 
     private void writeDbScript() throws FileAlreadyExistsException{
@@ -152,12 +157,13 @@ public class BuildDBScripts {
     }
 
     private void writeRollbackDbScript() throws FileAlreadyExistsException {
-        String pathForRollbackScript = getPathForScript() + File.separator + "ROLLBACK";
-        if(Files.exists(Paths.get(getPathForScript())) && FileUtils.createDirectory(pathForRollbackScript)) {
-            wrapDbScript(pathForRollbackScript, rollbackScriptOrder);
-
-        } else {
-            throw new FileAlreadyExistsException("directory "+pathForRollbackScript+" already exists!!!");
+        if(!rollbackScriptOrder.isEmpty()) {
+            String pathForRollbackScript = getPathForScript() + File.separator + "ROLLBACK";
+            if (Files.exists(Paths.get(getPathForScript())) && FileUtils.createDirectory(pathForRollbackScript)) {
+                wrapDbScript(pathForRollbackScript, rollbackScriptOrder);
+            } else {
+                throw new FileAlreadyExistsException("directory " + pathForRollbackScript + " already exists!!!");
+            }
         }
     }
 

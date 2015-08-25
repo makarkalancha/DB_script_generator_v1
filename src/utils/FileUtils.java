@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 /**
@@ -37,11 +40,23 @@ public class FileUtils {
         try (
                 PrintWriter pw = new PrintWriter(new File(destinationPath));
         ){
+//            //test
 //            Files.copy(Paths.get(targetPath), Paths.get(destinationPath), StandardCopyOption.REPLACE_EXISTING);
+            //prod
 //            Files.copy(new File(targetPath.toURI()).toPath(), Paths.get(destinationPath), StandardCopyOption.REPLACE_EXISTING);
             while ((bytesRead = targetPath.read()) != -1) {
                 pw.append((char)bytesRead);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void copyFileFromJar(String targetPath, String destinationPath) {
+        int bytesRead;
+        try {
+            //test
+            Files.copy(Paths.get(targetPath), Paths.get(destinationPath), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
         }

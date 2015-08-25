@@ -1,6 +1,0 @@
-
-
-03_drop_TMP_YJADGROUPBIDMULTIPLIER.sql
-02_drop_TMP_YJADGTARGCH_YJADGBIDM.sql
-01_insert_duplicates.sql
-
