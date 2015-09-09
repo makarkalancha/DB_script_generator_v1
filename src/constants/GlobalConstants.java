@@ -10,5 +10,4 @@ public class GlobalConstants {
     public static final String DEFAULT_SCRIPT_DESTINATION_FOLDER = System.getProperty("user.dir"); //"c:\\acquisio";
     public static final String DEFAULT_SCRIPT_ORDER_FILE = System.getProperty("user.dir")+"\\order_file.txt";
     public static final String DEFAULT_SCRIPT_ROLLBACK_ORDER_FILE = System.getProperty("user.dir")+"\\rollback_order_file.txt";
-
 }
