@@ -14,6 +14,10 @@ Format of order files is (no header/footer):
 02_create_TMP_YJADGTARGCH_YJADGBIDM.sql
 03_ create_TMP_YJADGROUPBIDMULTIPLIER.sql
 
+"rollback_order_file.txt" is mandatory, but it can be empty. Client issue's fixes often don't need rollback.
+If "rollback_order_file.txt" is emtpy, then ROLLBACK folder is not created.
+If "rollback_order_file.txt" is NOT empty, then ROLLBACK folder IS created in accordance with script order in the file.
+Format of the file is like file "order_file.txt".
 
 
 ==================Validation:==================
