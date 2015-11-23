@@ -1,5 +1,5 @@
 ==================Requirements:================
-2 files a necessary: one containing the order of scripts to run and second the order of scripts to run for rollback.
+2 files are necessary: one containing the order of scripts to run and second the order of scripts to run for rollback.
 
 To wrap the script app needs the name of the script, the destination folder and path to order file and rollback order file.
 
@@ -26,3 +26,9 @@ checks if there's a space in a scrip name; otherwise script will fail
 
 --SqlExtentionRule
 checks if script name ends with ".sql"
+
+--Synonyms
+There should be no synonyms in dev schemas, i.e.: synonyms should be in DEVACQUISIO*NONSTAT_run_all.sql files,
+but they should not be in DEVTEAMSCHEMA_run_all.sql;
+
+If file's name is 03_create_synonym_campaign.sql, then is file we be added to DEVACQUISIO*NONSTAT_run_all.sql, but not to DEVTEAMSCHEMA_run_all.sql;
