@@ -32,3 +32,31 @@ There should be no synonyms in dev schemas, i.e.: synonyms should be in DEVACQUI
 but they should not be in DEVTEAMSCHEMA_run_all.sql;
 
 If file's name is 03_create_synonym_campaign.sql, then is file we be added to DEVACQUISIO*NONSTAT_run_all.sql, but not to DEVTEAMSCHEMA_run_all.sql;
+
+
+==================Building:====================
+BuildDBScript.java #144:
+1)PROD
+--for prod to create jar uncomment
+FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("cc_grant_obj_privileges.sql"),
+    path + "\\cc_grant_obj_privileges.sql");
+FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("validate_invalid_objects.sql"),
+    path + "\\validate_invalid_objects.sql");
+--and comment
+FileUtils.copyFileFromJar("cc_grant_obj_privileges.sql",
+    path + "\\cc_grant_obj_privileges.sql");
+FileUtils.copyFileFromJar("validate_invalid_objects.sql",
+    path + "\\validate_invalid_objects.sql");
+--build->build artifacts, create jar
+
+2)TEST
+--debug, run in IDE uncomment
+FileUtils.copyFileFromJar("cc_grant_obj_privileges.sql",
+    path + "\\cc_grant_obj_privileges.sql");
+FileUtils.copyFileFromJar("validate_invalid_objects.sql",
+    path + "\\validate_invalid_objects.sql");
+--and comment
+FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("cc_grant_obj_privileges.sql"),
+    path + "\\cc_grant_obj_privileges.sql");
+FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("validate_invalid_objects.sql"),
+    path + "\\validate_invalid_objects.sql");
