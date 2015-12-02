@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import constants.GlobalConstants;
 import utils.CmdUtil;
 
@@ -17,15 +14,10 @@ public class Main {
 
     public static void main(String[] args){
         System.out.println("Db script wrapper");
-        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date currentDate = new Date();
-//        String currentDateString = dateFormat.format(currentDate);
 
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in, "utf-8"));
 
-//            System.out.print("Script Name [" + currentDateString + GlobalConstants.DEFAULT_SCRIPT_NAME_SUFFIX + "]: ");
-//            String scriptName = CmdUtil.getValue(bufferedReader.readLine(), currentDateString + DEFAULT_SCRIPT_NAME_SUFFIX);
             System.out.print("Script Name: ");
             String scriptName = bufferedReader.readLine().replaceAll("\\s+","");
             if(scriptName == null || scriptName.isEmpty()) {
