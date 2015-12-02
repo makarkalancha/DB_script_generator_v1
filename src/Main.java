@@ -19,13 +19,18 @@ public class Main {
         System.out.println("Db script wrapper");
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         Date currentDate = new Date();
-        String currentDateString = dateFormat.format(currentDate);
+//        String currentDateString = dateFormat.format(currentDate);
 
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in, "utf-8"));
 
-            System.out.print("Script Name [" + currentDateString + GlobalConstants.DEFAULT_SCRIPT_NAME_SUFFIX + "]: ");
-            String scriptName = CmdUtil.getValue(bufferedReader.readLine(), currentDateString + "_db_script");
+//            System.out.print("Script Name [" + currentDateString + GlobalConstants.DEFAULT_SCRIPT_NAME_SUFFIX + "]: ");
+//            String scriptName = CmdUtil.getValue(bufferedReader.readLine(), currentDateString + DEFAULT_SCRIPT_NAME_SUFFIX);
+            System.out.print("Script Name: ");
+            String scriptName = bufferedReader.readLine().replaceAll("\\s+","");
+            if(scriptName == null || scriptName.isEmpty()) {
+                throw new IllegalArgumentException("Script name cannot be empty!");
+            }
 
             System.out.print("Destination folder [" + GlobalConstants.DEFAULT_SCRIPT_DESTINATION_FOLDER + "]: ");
             String desctinationFolder = CmdUtil.getValue(bufferedReader.readLine(), GlobalConstants.DEFAULT_SCRIPT_DESTINATION_FOLDER);

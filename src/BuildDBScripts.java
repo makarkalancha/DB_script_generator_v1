@@ -1,11 +1,11 @@
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import java.io.File;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 import constants.GlobalConstants;
 import constants.ScriptConstants;
 import utils.FileUtils;
@@ -125,27 +125,32 @@ public class BuildDBScripts {
         StringBuilder scriptsWithDoublePrefix = new StringBuilder();
         prefixScriptNames(scriptList, scriptsWithPrefix, scriptsWithDoublePrefix);
 
-        String newStat = ScriptConstants.STAT.replace(ScriptConstants.KEY_WORD, scriptsWithDoublePrefix.toString());
+        String newStat = ScriptConstants.STAT
+                .replace(ScriptConstants.KEY_WORD, scriptsWithDoublePrefix.toString())
+                .replace(ScriptConstants.SCRIPT_NAME_PLACEHOLDER, scriptName);
+
         String newNonStat = ScriptConstants.NON_STAT.replace(ScriptConstants.KEY_WORD, scriptsWithPrefix.toString());
 
         FileUtils.writeToFile(path + File.separator + ScriptConstants.STAT_FILE_NAME, newStat);
 
         for (int i = 1; i <= GlobalConstants.PARTITION_QTY; i++) {
             String nonStatFileName = ScriptConstants.NON_STAT_FILE_NAME.replace(ScriptConstants.PARTITION_NUMBER_KEY_WORD, Integer.toString(i));
-            String nonStatScript = newNonStat.replace(ScriptConstants.PARTITION_NUMBER_KEY_WORD, Integer.toString(i));
+            String nonStatScript = newNonStat
+                    .replace(ScriptConstants.PARTITION_NUMBER_KEY_WORD, Integer.toString(i))
+                    .replace(ScriptConstants.SCRIPT_NAME_PLACEHOLDER, scriptName);
             FileUtils.writeToFile(path + File.separator + nonStatFileName, nonStatScript);
         }
 
-        //prod
-        FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("cc_grant_obj_privileges.sql"),
-                path + "\\cc_grant_obj_privileges.sql");
-        FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("validate_invalid_objects.sql"),
-                path + "\\validate_invalid_objects.sql");
-//        //test
-//        FileUtils.copyFileFromJar("cc_grant_obj_privileges.sql",
+//        //prod
+//        FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("cc_grant_obj_privileges.sql"),
 //                path + "\\cc_grant_obj_privileges.sql");
-//        FileUtils.copyFileFromJar("validate_invalid_objects.sql",
+//        FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("validate_invalid_objects.sql"),
 //                path + "\\validate_invalid_objects.sql");
+        //test
+        FileUtils.copyFileFromJar("cc_grant_obj_privileges.sql",
+                path + "\\cc_grant_obj_privileges.sql");
+        FileUtils.copyFileFromJar("validate_invalid_objects.sql",
+                path + "\\validate_invalid_objects.sql");
     }
 
     private void writeDbScript() throws FileAlreadyExistsException{

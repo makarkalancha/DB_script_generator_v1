@@ -7,6 +7,7 @@ public class ScriptConstants {
 
     public static final String KEY_WORD = "ЗДЕСЯТУТА";
     public static final String STAT_FILE_NAME= "DEVTEAMSCHEMA_run_all.sql";
+    public static final String SCRIPT_NAME_PLACEHOLDER = "~SCRRIPT_NAME~";
     public static final String STAT  =
             "DEFINE APPUSER        = &votre_u\n" +
             "DEFINE TBL_TABLESPACE = DEVELOP_DTA\n" +
@@ -22,9 +23,13 @@ public class ScriptConstants {
             "column START_DATE HEADING ''\n" +
             "select 'START_DATE ' || to_char(SYSDATE, 'yyyy-mm-dd hh24:mi:ss') AS START_DATE from dual;\n" +
             "\n" +
+            "exec dbobjver.start_ddl_exec('~SCRRIPT_NAME~.zip', '&OWNER');\n"+
+            "\n" +
             "ЗДЕСЯТУТА\n" +
             "@@validate_invalid_objects.sql\n" +
             "@@cc_grant_obj_privileges.sql\n" +
+            "\n" +
+            "exec dbobjver.end_ddl_exec;\n"+
             "\n" +
             "set termout on\n" +
             "column END_DATE HEADING ''\n" +
@@ -48,9 +53,13 @@ public class ScriptConstants {
         "column START_DATE HEADING ''\n" +
         "select 'START_DATE ' || to_char(SYSDATE, 'yyyy-mm-dd hh24:mi:ss') AS START_DATE from dual;\n" +
         "\n" +
+        "exec dbobjver.start_ddl_exec('~SCRRIPT_NAME~.zip', '&OWNER');\n"+
+        "\n" +
         "ЗДЕСЯТУТА\n" +
         "@validate_invalid_objects.sql\n" +
         "@cc_grant_obj_privileges.sql\n" +
+        "\n" +
+        "exec dbobjver.end_ddl_exec;\n"+
         "\n" +
         "set termout on\n" +
         "column END_DATE HEADING ''\n" +
