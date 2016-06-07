@@ -141,16 +141,16 @@ public class BuildDBScripts {
             FileUtils.writeToFile(path + File.separator + nonStatFileName, nonStatScript);
         }
 
-//        //prod: build->build artifacts, create jar
-//        FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("cc_grant_obj_privileges.sql"),
-//                path + "\\cc_grant_obj_privileges.sql");
-//        FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("validate_invalid_objects.sql"),
-//                path + "\\validate_invalid_objects.sql");
-        //test: debug, run in IDE
-        FileUtils.copyFileFromJar("cc_grant_obj_privileges.sql",
+        //prod: build->build artifacts, create jar
+        FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("cc_grant_obj_privileges.sql"),
                 path + "\\cc_grant_obj_privileges.sql");
-        FileUtils.copyFileFromJar("validate_invalid_objects.sql",
+        FileUtils.copyFileFromJar(getClass().getClassLoader().getResourceAsStream("validate_invalid_objects.sql"),
                 path + "\\validate_invalid_objects.sql");
+//        //test: debug, run in IDE
+//        FileUtils.copyFileFromJar("cc_grant_obj_privileges.sql",
+//                path + "\\cc_grant_obj_privileges.sql");
+//        FileUtils.copyFileFromJar("validate_invalid_objects.sql",
+//                path + "\\validate_invalid_objects.sql");
     }
 
     private void writeDbScript() throws FileAlreadyExistsException{

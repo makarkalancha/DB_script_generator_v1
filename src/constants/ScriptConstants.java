@@ -26,10 +26,11 @@ public class ScriptConstants {
             "exec dbobjver.start_ddl_exec('~SCRRIPT_NAME~.zip', '&OWNER');\n"+
             "\n" +
             "ЗДЕСЯТУТА\n" +
-            "@@validate_invalid_objects.sql\n" +
-            "@@cc_grant_obj_privileges.sql\n" +
             "\n" +
             "exec dbobjver.end_ddl_exec;\n"+
+            "\n" +
+            "@@validate_invalid_objects.sql\n" +
+            "@@cc_grant_obj_privileges.sql\n" +
             "\n" +
             "set termout on\n" +
             "column END_DATE HEADING ''\n" +
@@ -56,10 +57,11 @@ public class ScriptConstants {
         "exec dbobjver.start_ddl_exec('~SCRRIPT_NAME~.zip', '&OWNER');\n"+
         "\n" +
         "ЗДЕСЯТУТА\n" +
-        "@validate_invalid_objects.sql\n" +
-        "@cc_grant_obj_privileges.sql\n" +
         "\n" +
         "exec dbobjver.end_ddl_exec;\n"+
+        "\n" +
+        "@validate_invalid_objects.sql\n" +
+        "@cc_grant_obj_privileges.sql\n" +
         "\n" +
         "set termout on\n" +
         "column END_DATE HEADING ''\n" +
